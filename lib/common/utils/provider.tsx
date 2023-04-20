@@ -3,6 +3,8 @@ import { useRouter } from 'next/router';
 
 import PrefetchContext, { ProfileContextType } from './context';
 import { isResponseValid } from './response';
+import {ApiService} from "@/lib/common/services/api.services";
+import {Routes} from "@/lib/common/utils/routes";
 
 export type PageContextChildrenProps = {
     profile?: ProfileContextType,
@@ -31,6 +33,12 @@ const ContextProvider = ({ profile: _profile = null, data: _data, loginRequired 
     const fetchData = async () => {
         if (!!sessionStorage.getItem('user_profile')) {
             return JSON.parse(sessionStorage.getItem('user_profile') || "null");
+        } else {
+            const user_profile_res = await ApiService.get("http://127.0.0.1:8000/api/me/");
+            if (isResponseValid(user_profile_res)) {
+                sessionStorage.setItem('user_profile', JSON.stringify(user_profile_res?.data.data));
+                return user_profile_res?.data.data;
+            }
         }
     }
 
@@ -42,7 +50,7 @@ const ContextProvider = ({ profile: _profile = null, data: _data, loginRequired 
                     setShowPage(true);
                 } else {
                     router.push({
-                        // pathname: Routes.login(),
+                        pathname: Routes.login(),
                         query: { nextRoute: router.pathname }
                     });
                 }

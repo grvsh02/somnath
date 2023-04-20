@@ -1,68 +1,102 @@
 import React from "react";
-import {Card, Typography} from "@material-tailwind/react";
-
+import {Card} from "@material-tailwind/react";
+import {useRouter} from "next/router";
+import {keyTabMap, pathTabMap} from "@/lib/common/utils/sidebarConfig";
 
 const Sidebar = () => {
+  const router = useRouter();
+
+  const getKeyFromPath = () => {
+    const path = router.pathname;
+    let pathList = path.split('/');
+    let basePath = '/';
+    if (pathList.length > 1) basePath = `/${pathList[1]}`;
+    if (pathTabMap.has(basePath)) {
+      return pathTabMap.get(basePath)!.key;
+    }
+    return undefined;
+  };
+
+  const [selected, setSelected] = React.useState(getKeyFromPath());
+
+  const updateRoute = (key: string) => {
+    if (!keyTabMap.has(key)) return;
+    const newTab = keyTabMap.get(key)!;
+    router.push(`${newTab.path}`);
+  };
+
   return (
-    <div className="flex w-1/6">
-    <Card className="w-full flex flex-col items-center pt-5 pb-2 space-y-7">
+    <div className="flex w-66">
+    <Card className="w-full flex flex-col items-center rounded-none bg-[#FCFDFF] pt-5 pb-2 space-y-7">
       <div className="w-full pr-3 flex flex-col gap-y-2 text-gray-500 fill-gray-500 text-sm">
         <div className="pl-4 text-slate-300 text-xs uppercase">
           Menu
         </div>
 
-        <div className="w-full flex items-center gap-x-1.5 group select-none">
+        <div className="w-full flex items-center gap-x-1.5 group select-none" onClick={() => {
+          setSelected(pathTabMap.get("/dashboard")!.key)
+          updateRoute(pathTabMap.get("/dashboard")!.key)
+        }}>
           <div className="w-1 rounded-xl h-8 bg-transparent transition-colors duration-200 relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-[102%] group-hover:translate-y-0 translate-y-0 bg-[#4154F1] transition-all duration-300"></div>
+            <div className={`absolute top-0 left-0 w-full h-[102%] group-hover:translate-y-0 ${selected === "dashboard" ? "translate-y-0" : "translate-y-full"} bg-[#4154F1] transition-all duration-300`}></div>
           </div>
           <div className="bg-white/10 group-hover:bg-white/10 w-full group-active:scale-95 self-stretch pl-2 rounded flex items-center space-x-2 transition-all duration-200 dark:group-hover:text-white dark:hover:text-white text-sm">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" className="h-5 w-5 !fill-[#4154F1] group-hover:fill-blue-800 dark:fill-gray-600  transition-colors duration-200">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" className={`h-5 w-5 ${selected === "dashboard" ? "!fill-[#4154F1]" : ""} group-hover:fill-blue-800 dark:fill-gray-600 transition-colors duration-200`}>
               <path d="M575.8 255.5c0 18-15 32.1-32 32.1h-32l.7 160.2c0 2.7-.2 5.4-.5 8.1V472c0 22.1-17.9 40-40 40H456c-1.1 0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1H416 392c-22.1 0-40-17.9-40-40V448 384c0-17.7-14.3-32-32-32H256c-17.7 0-32 14.3-32 32v64 24c0 22.1-17.9 40-40 40H160 128.1c-1.5 0-3-.1-4.5-.2c-1.2 .1-2.4 .2-3.6 .2H104c-22.1 0-40-17.9-40-40V360c0-.9 0-1.9 .1-2.8V287.6H32c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L564.8 231.5c8 7 12 15 11 24z"/>
             </svg>
 
-            <div className="font-bold group-hover:text-[#4154F1]">Home</div>
+            <div className={`font-bold ${selected == "dashboard" ? "text-[#4154F1]" : "group-hover:text-[#4154F1]"}`}>Home</div>
           </div>
         </div>
 
-        <div className="w-full flex items-center gap-x-1.5 group select-none">
+        <div className="w-full flex items-center gap-x-1.5 group select-none" onClick={() => {
+          setSelected(pathTabMap.get("/checkin")!.key)
+          updateRoute(pathTabMap.get("/checkin")!.key)
+        }}>
           <div className="w-1 rounded-xl h-8 bg-transparent transition-colors duration-200 relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-[102%] translate-y-full group-hover:translate-y-0 bg-[#4154F1] transition-all duration-300"></div>
+            <div className={`absolute top-0 left-0 w-full h-[102%] ${selected === "checkIn" ? "translate-y-0" : "translate-y-full"} group-hover:translate-y-0 bg-[#4154F1] transition-all duration-300`}></div>
           </div>
           <div className="group-hover:bg-white/10 w-full group-active:scale-95 self-stretch pl-2 rounded flex items-center space-x-2 transition-all duration-200 dark:group-hover:text-white dark:hover:text-white text-sm">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="h-5 w-5 group-hover:fill-[#4154F1] dark:fill-gray-600  transition-colors duration-200">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className={`h-5 w-5 ${selected === "checkIn" ? "!fill-[#4154F1]" : ""} group-hover:fill-blue-800 dark:fill-gray-600 transition-colors duration-200`}>
               <path d="M352 96l64 0c17.7 0 32 14.3 32 32l0 256c0 17.7-14.3 32-32 32l-64 0c-17.7 0-32 14.3-32 32s14.3 32 32 32l64 0c53 0 96-43 96-96l0-256c0-53-43-96-96-96l-64 0c-17.7 0-32 14.3-32 32s14.3 32 32 32zm-9.4 182.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L242.7 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l210.7 0-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128z"/>
             </svg>
-            <div className="font-bold group-hover:text-[#4154F1]">Check in</div>
+            <div className={`font-bold ${selected == "checkIn" ? "text-[#4154F1]" : "group-hover:text-[#4154F1]"}`}>Check in</div>
           </div>
         </div>
 
-        <div className="w-full flex items-center gap-x-1.5 group select-none">
+        <div className="w-full flex items-center gap-x-1.5 group select-none" onClick={() => {
+          setSelected(pathTabMap.get("/checkout")!.key)
+          updateRoute(pathTabMap.get("/checkout")!.key)
+        }}>
           <div className="w-1 rounded-xl h-8 bg-transparent transition-colors duration-200 relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-[102%] translate-y-full group-hover:translate-y-0 bg-[#4154F1] transition-all duration-300"></div>
+            <div className={`absolute top-0 left-0 w-full h-[102%] ${selected === "checkOut" ? "translate-y-0" : "translate-y-full"} group-hover:translate-y-0 bg-[#4154F1] transition-all duration-300`}></div>
           </div>
           <div className="group-hover:bg-white/10 w-full group-active:scale-95 self-stretch pl-2 rounded flex items-center space-x-2 transition-all duration-200 dark:group-hover:text-white dark:hover:text-white text-sm">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="h-5 w-5 group-hover:fill-[#4154F1] dark:fill-gray-600  transition-colors duration-200">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className={`h-5 w-5 ${selected === "checkOut" ? "!fill-[#4154F1]" : ""} group-hover:fill-blue-800 dark:fill-gray-600 transition-colors duration-200`}>
               <path d="M502.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 224 192 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l210.7 0-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128zM160 96c17.7 0 32-14.3 32-32s-14.3-32-32-32L96 32C43 32 0 75 0 128L0 384c0 53 43 96 96 96l64 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-64 0c-17.7 0-32-14.3-32-32l0-256c0-17.7 14.3-32 32-32l64 0z"/>
             </svg>
 
-            <div className="font-bold group-hover:text-[#4154F1]">Check Out</div>
+            <div className={`font-bold ${selected == "checkOut" ? "text-[#4154F1]" : "group-hover:text-[#4154F1]"}`}>Check Out</div>
           </div>
         </div>
 
-        <div className="w-full flex items-center gap-x-1.5 group select-none">
+        <div className="w-full flex items-center gap-x-1.5 group select-none" onClick={() => {
+          setSelected(pathTabMap.get("/leave_request")!.key)
+          updateRoute(pathTabMap.get("/leave_request")!.key)
+        }}>
           <div className="w-1 rounded-xl h-8 bg-transparent transition-colors duration-200 relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-[102%] translate-y-full group-hover:translate-y-0 bg-[#4154F1] transition-all duration-300"></div>
+            <div className={`absolute top-0 left-0 w-full h-[102%] ${selected === "leaveRequest" ? "translate-y-0" : "translate-y-full"} group-hover:translate-y-0 bg-[#4154F1] transition-all duration-300`}></div>
           </div>
           <div className="group-hover:bg-white/10 w-full group-active:scale-95 self-stretch pl-2 rounded flex items-center space-x-2 transition-all duration-200 dark:group-hover:text-white dark:hover:text-white text-sm">
             <svg
-              className="h-5 w-5 group-hover:fill-[#4154F1] dark:fill-gray-600  transition-colors duration-200"
+              className={`h-5 w-5 ${selected === "leaveRequest" ? "!fill-[#4154F1]" : ""} group-hover:fill-blue-800 dark:fill-gray-600 transition-colors duration-200`}
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C21.9939 17.5203 17.5203 21.9939 12 22ZM12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20C16.4183 20 20 16.4183 20 12C19.995 7.58378 16.4162 4.00496 12 4ZM17 13H11V7H13V11H17V13Z"></path>
             </svg>
 
-            <div className="font-bold group-hover:text-[#4154F1]">Leave Requests</div>
+            <div className={`font-bold ${selected == "leaveRequest" ? "text-[#4154F1]" : "group-hover:text-[#4154F1]"}`}>Leave Requests</div>
           </div>
         </div>
       </div>
@@ -121,7 +155,7 @@ const Sidebar = () => {
           </div>
         </div>
       </div>
-    </Card>
+      </Card>
     </div>
   );
 }

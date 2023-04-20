@@ -1,5 +1,4 @@
-import React, { ReactNode, useState, useContext, createContext } from 'react';
-import { User } from '../interfaces/user.interface';
+import React, { ReactNode, useContext, createContext } from 'react';
 import PrefetchContext, {ProfileContextType} from "../utils/context";
 
 interface AuthProvider {

@@ -13,7 +13,7 @@ export type PageContextOptions = {
   pageTitle?: string
 };
 
-const COMMON_DESCRIPTION = `The last no-code AI platform you will ever need. Simplismart makes it easier for researchers and businesses to build and deploy machine learning models. It lets you manage your machine learning lifecycle within minutes without any coding. Learn more about how Simplismart works and how other users are leveraging it to power their software and decisions.`
+const COMMON_DESCRIPTION = `An attendance management platform which fits any organization of any size and any domain`
 
 const withPageContext = (
   Component: React.FunctionComponent<Partial<PageContextChildrenProps>>,
@@ -44,17 +44,6 @@ const withPageContext = (
 
           {/* <!-- HTML Meta Tags --> */}
           <meta name="description" content={COMMON_DESCRIPTION} />
-
-          {/* <!-- Twitter Meta Tags --> */}
-          <meta name="twitter:card" content="summary_large_image" />
-          <meta property="twitter:domain" content="" />
-          <meta name="twitter:title" content={currentPageTitle} />
-          <meta name="twitter:description" content={COMMON_DESCRIPTION} />
-          {/* <!-- Facebook Meta Tags --> */}
-          <meta property="og:site_name" content="" />
-          <meta property="og:title" content={currentPageTitle} />
-          <meta property="og:type" content="website" />
-          <meta property="og:description" content={COMMON_DESCRIPTION} />
         </Head>
         {enableLayout ? (
           <Layout> <Component {...props} /> </Layout>
