@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react"
-import {Typography, Breadcrumbs, Card, Textarea, Input, Button} from "@material-tailwind/react";
+import {Typography, Breadcrumbs, Card, Textarea, Input, Button, Select, Option} from "@material-tailwind/react";
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
@@ -10,6 +10,9 @@ const CheckIn = () => {
 
     const [time, setTime] = useState(new Date());
 
+    const [locations, setLocations] = useState([])
+    const [location, setLocation] = useState("")
+    const [otherLocation, setOtherLocation] = useState("")
     const options:any = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     const formattedDate = time.toLocaleDateString(undefined, options);
     const formattedTime = time.toLocaleTimeString();
@@ -43,6 +46,8 @@ const CheckIn = () => {
                 const formattedTime = dateObject.toLocaleTimeString();
                 setCheckedIn(true)
                 setCheckTime({date: formattedDate, time: formattedTime})
+            } else {
+                setLocations(res?.data?.data?.locations)
             }
         }
         checkStatus()
@@ -50,7 +55,9 @@ const CheckIn = () => {
 
     const handleCheckIn = async () => {
         const response = await ApiService.postForm("http://127.0.0.1:8000/api/check/in/", {
-            check_in_message: checkInMessage
+            check_in_message: checkInMessage,
+            location_id: location,
+            other_location: otherLocation
         })
         console.log(response)
         setCheckedIn(true)
@@ -88,7 +95,28 @@ const CheckIn = () => {
                                     <Input value={formattedTime} label="Check in time" disabled/>
                                 </div>
                             </div>
-                            <div className="my-4">
+                            <div className="mt-3 flex">
+                                {/*@ts-ignore*/}
+                                <div className={`mr-2 ${locations.find(o => o.name === "others")?.id === location ? "w-1/2" : "w-full"}`}>
+                                    <Select label="Location" color="indigo" onChange={(value: any) => {
+                                        setLocation(value)
+                                        console.log(value)
+                                    }}>
+                                        {locations.map((location: any) => (
+                                            <Option value={location.id} key={location.id}><div className="flex items-center"><Typography variant="h6">{location.name}</Typography>{location.address && (
+                                                <Typography variant="small" className="ml-2">{location.address + ", " + location.city + ", " + location.state}</Typography>
+                                            )}</div></Option>
+                                        ))}
+                                    </Select>
+                                </div>
+                                {/*@ts-ignore*/}
+                                {locations.find(o => o.name === "others")?.id === location && (
+                                    <div className="ml-2 w-1/2">
+                                        <Input label="Other Location"></Input>
+                                    </div>
+                                )}
+                            </div>
+                            <div className="my-6">
                                 <Textarea color="indigo" label="Message" rows={10} value={checkInMessage} onChange={e => setCheckInMessage(e.currentTarget.value)}/>
                             </div>
                             <div className="flex justify-end">

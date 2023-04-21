@@ -40,6 +40,7 @@ const CheckOut = () => {
     })
     const [checkOutMessage, setCheckOutMessage] = useState("")
     const [showAlert, setShowAlert] = useState(false)
+    const [checkinMessage, setCheckinMessage] = useState("")
 
     const [value, setValue] = useState({
         startDate: null,
@@ -66,6 +67,8 @@ const CheckOut = () => {
                 setCheckTime({date: formattedDate, time: formattedTime})
             } else if (!res?.data?.data?.check_in){
                 setShowAlert(true)
+            } else {
+                setCheckinMessage(res?.data?.data?.check_in_message)
             }
         }
         checkStatus()
@@ -106,7 +109,7 @@ const CheckOut = () => {
                     </div>
                     ) : (
                     <div className="flex py-8">
-                        <div className="w-1/2">
+                        <div className="w-full">
                             <div className="flex">
                                 <div className="w-1/2 my-3 mr-2">
                                     <Input value={formattedDate} label="Check out date" disabled/>
@@ -115,18 +118,16 @@ const CheckOut = () => {
                                     <Input value={formattedTime} label="Check out time" disabled/>
                                 </div>
                             </div>
-                            <div className="my-4">
-                                <Textarea color="indigo" label="Message" rows={10} value={checkOutMessage} onChange={e => setCheckOutMessage(e.currentTarget.value)}/>
+                            <div className="grid grid-cols-2 gap-4">
+                                <div className="my-4">
+                                    <Textarea color="indigo" label="Checkin message" rows={10} value={checkinMessage} onChange={e => setCheckOutMessage(e.currentTarget.value)} disabled/>
+                                </div>
+                                <div className="my-4">
+                                    <Textarea color="indigo" label="Checkout message" rows={10} value={checkOutMessage} onChange={e => setCheckOutMessage(e.currentTarget.value)}/>
+                                </div>
                             </div>
                             <div className="flex justify-end">
                                 <Button color="indigo" onClick={() => handleCheckOut()} className="px-12 py-4">Check Out</Button>
-                            </div>
-                        </div>
-                        <div className="w-1/2 flex item-center justify-center">
-                            <div className="shadow-lg">
-                                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                    <DateCalendar />
-                                </LocalizationProvider>
                             </div>
                         </div>
                     </div>

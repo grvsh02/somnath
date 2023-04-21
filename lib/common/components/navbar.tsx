@@ -68,14 +68,14 @@ const CustomNavbar = () => {
                     Attendify
                 </Typography>
                 <div className="flex items-center gap-4">
-                    <div className="mr-4 hidden lg:block">{navList}</div>
+                    {/*<div className="mr-4 hidden lg:block">{navList}</div>*/}
                     <Button
                         variant="gradient"
                         size="sm"
-                        className="hidden lg:inline-block"
+                        className="hidden lg:inline-block px-8"
                         color="indigo"
                     >
-                        <span>Contact Support</span>
+                        <span>Support</span>
                     </Button>
                     <IconButton
                         variant="text"
