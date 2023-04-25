@@ -97,12 +97,12 @@ const CheckIn = () => {
                             </div>
                             <div className="mt-3 flex">
                                 {/*@ts-ignore*/}
-                                <div className={`mr-2 ${locations.find(o => o.name === "others")?.id === location ? "w-1/2" : "w-full"}`}>
+                                <div className={`mr-2 ${locations?.find(o => o.name === "others")?.id === 2 ? "w-1/2" : "w-full"}`}>
                                     <Select label="Location" color="indigo" onChange={(value: any) => {
                                         setLocation(value)
                                         console.log(value)
                                     }}>
-                                        {locations.map((location: any) => (
+                                        {locations?.map((location: any) => (
                                             <Option value={location.id} key={location.id}><div className="flex items-center"><Typography variant="h6">{location.name}</Typography>{location.address && (
                                                 <Typography variant="small" className="ml-2">{location.address + ", " + location.city + ", " + location.state}</Typography>
                                             )}</div></Option>
@@ -110,9 +110,9 @@ const CheckIn = () => {
                                     </Select>
                                 </div>
                                 {/*@ts-ignore*/}
-                                {locations.find(o => o.name === "others")?.id === location && (
+                                {locations?.find(o => o.name === "others")?.id === location && (
                                     <div className="ml-2 w-1/2">
-                                        <Input label="Other Location"></Input>
+                                        <Input label="Other Location" onChange={e => setOtherLocation(e.currentTarget.value)}></Input>
                                     </div>
                                 )}
                             </div>

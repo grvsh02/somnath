@@ -1,8 +1,5 @@
 import React, {useEffect, useState} from "react"
 import {Typography, Breadcrumbs, Card, Textarea, Input, Button} from "@material-tailwind/react";
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { Alert } from "@material-tailwind/react";
 import {ApiService} from "@/lib/common/services/api.services";
 

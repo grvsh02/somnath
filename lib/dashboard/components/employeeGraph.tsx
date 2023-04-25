@@ -29,10 +29,6 @@ export const options = {
         legend: {
             position: 'top' as const,
         },
-        title: {
-            display: true,
-            text: 'Chart.js Line Chart',
-        },
     },
 };
 
@@ -44,11 +40,12 @@ const EmployeeGraph = ({graphData}: any) => {
         labels: graphData?.labels,
         datasets: [
             {
-                label: 'Hours Worked',
+                label: 'Hours Worked in last 7 days',
                 data: graphData?.data,
                 fill: true,
                 borderColor: 'rgb(67 56 202)',
                 backgroundColor: 'rgb(165 180 252)',
+                lineTension: 0.1,
             },
         ],
     }
