@@ -1,7 +1,7 @@
 import withPageContext from "@/lib/common/utils/withPageContext";
-import AdminDashboard from "@/lib/admin";
+import AttendanceSheet from "@/lib/admin/views/attendance";
 
-export default withPageContext( () => (<AdminDashboard/>),
+export default withPageContext( () => (<AttendanceSheet/>),
     {
         loginRequired: true,
         pageTitle: 'DashBoard',

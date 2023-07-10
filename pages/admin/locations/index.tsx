@@ -1,7 +1,7 @@
 import withPageContext from "@/lib/common/utils/withPageContext";
-import AdminDashboard from "@/lib/admin";
+import ManageLocations from "@/lib/admin/views/manageLocations";
 
-export default withPageContext( () => (<AdminDashboard/>),
+export default withPageContext( () => (<ManageLocations/>),
     {
         loginRequired: true,
         pageTitle: 'DashBoard',

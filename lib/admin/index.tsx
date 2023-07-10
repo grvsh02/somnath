@@ -123,13 +123,15 @@ const AdminDashBoard = () => {
                     </Card>
                 </div>
                 <div className="flex flex-col w-1/3 ml-6">
-                    <Card className="p-6 w-full">
-                        <div className="mb-4 font-semibold text-2xl text-black">
+                    <Card className="p-6 flex flex-col items-center w-full">
+                        <div className="mb-4 w-full flex justify-start font-semibold text-2xl text-black">
                             Location Overview
                         </div>
-                        <LocationChart/>
+                        <div className="w-2/3">
+                            <LocationChart/>
+                        </div>
                     </Card>
-                    <Card className="p-6 mt-4">
+                    <Card className="p-6 mt-4 h-1/3">
                         <div className="mb-4 font-semibold text-2xl text-black">
                             Latest Attendance
                         </div>
