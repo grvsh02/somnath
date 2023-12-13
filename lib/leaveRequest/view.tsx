@@ -21,11 +21,13 @@ const ViewLeaves = ({setApply}: any) => {
         getLeaveRequests()
     }, [])
 
+    const shownleaverequests = leaveRequests.slice(0,10);
+
     return (
         <div>
             <div className="flex justify-between">
                 <div>
-                    <Typography variant="h4" suppressHydrationWarning>Showing your last {leaveRequests.length} Leave Requests</Typography>
+                    <Typography variant="h4" suppressHydrationWarning>Showing your last {shownleaverequests.length} Leave Requests</Typography>
                     <Typography variant="lead">You can check the status of your recent leave requests and see your recent request history.</Typography>
                 </div>
                 <div className="pt-4">
