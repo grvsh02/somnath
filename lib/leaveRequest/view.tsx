@@ -9,6 +9,7 @@ const ViewLeaves = ({setApply}: any) => {
 
     const [leaveRequests, setLeaveRequests] = useState<any>([])
 
+
     useEffect(() => {
         const getLeaveRequests = async () => {
             const response = await ApiService.get("http://127.0.0.1:8000/api/leave/requests/")
@@ -24,7 +25,7 @@ const ViewLeaves = ({setApply}: any) => {
         <div>
             <div className="flex justify-between">
                 <div>
-                    <Typography variant="h4" suppressHydrationWarning>Showing your last 3 Leave Requests</Typography>
+                    <Typography variant="h4" suppressHydrationWarning>Showing your last {leaveRequests.length} Leave Requests</Typography>
                     <Typography variant="lead">You can check the status of your recent leave requests and see your recent request history.</Typography>
                 </div>
                 <div className="pt-4">
