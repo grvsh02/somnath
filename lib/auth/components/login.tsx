@@ -61,8 +61,8 @@ const Login = () => {
 
 
     return (
-        <div className="flex w-full">
-            <div className="w-1/2 h-full bg-indigo-500 flex flex-col relative ">
+        <div className="flex w-full justify-center">
+            <div className="hidden lg:flex w-1/2 h-full bg-indigo-500 flex-col relative">
                 <img src={LoginElementBlueBottom.src} alt="G" className='absolute bottom-0 right-0'/>
                     <div className="flex flex-col h-full justify-center items-center">
                         <div className="my-10">
@@ -73,15 +73,21 @@ const Login = () => {
                 <img src={LoginElementBlueTop.src} alt="G" className='absolute top-0 left-0'/>
                 {/*<img src={ShowDatasetScreenshot.src} alt="G" className='absolute -bottom-14 -right-10'/>*/}
             </div>
-            <div className="flex justify-center items-center w-1/2">
-                <Card className="w-3/5">
+            <div className="w-full lg:w-1/2 flex justify-center lg:items-center">
+                <Card className="w-full md:p-4 lg:w-4/5 xl:w-3/5">
                     <CardBody className="flex flex-col gap-8">
-                        <div className="flex">
-                            <div className="border bg-indigo-50 w-40 border-[#5F6EF1] rounded-lg mr-10">
+                        <div className='bg-indigo-500 h-36 rounded-lg flex items-center relative overflow-hidden lg:hidden'>
+                            <img src={LoginElementBlueBottom.src} alt="G" className='absolute bottom-0 right-0 w-52'/>
+                            <div className='w-full text-white text-center text-2xl sm:text-2xl md:text-3xl sm:mt-6 sm:mb-6 lg:hidden'>Good {timeOfDay} !</div>
+                            <img src={LoginElementBlueTop.src} alt="G" className='absolute top-0 left-0 w-52'/>
+                        </div>
+                        
+                        <div className="flex text-sm md:text-base justify-center lg:justify-start">
+                            <div className="border bg-indigo-50 w-36 sm:w-40 border-[#5F6EF1] rounded-lg mr-10">
                                 <Radio id="employee" name="type" label="Employee" color="indigo" className="text-indigo-500" checked/>
                             </div>
                             <div className="border bg-indigo-50 w-40 border-[#5F6EF1] rounded-lg">
-                                <Radio id="admin" name="type" label="Admin" color="indigo" className="text-indigo-500" disabled />
+                                <Radio id="admin" name="type" label="Admin" color="indigo" className="text-indigo-500" />
                             </div>
                         </div>
                         {error && (
