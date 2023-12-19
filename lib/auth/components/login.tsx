@@ -76,13 +76,18 @@ const Login = () => {
             <div className="w-full lg:w-1/2 flex justify-center lg:items-center">
                 <Card className="w-full md:p-4 lg:w-4/5 xl:w-3/5">
                     <CardBody className="flex flex-col gap-8">
-                        <div className='w-full text-center text-xl sm:text-2xl md:text-3xl sm:mt-6 sm:mb-4 lg:hidden'>Welcome Back</div>
+                        <div className='bg-indigo-500 h-36 rounded-lg flex items-center relative overflow-hidden lg:hidden'>
+                            <img src={LoginElementBlueBottom.src} alt="G" className='absolute bottom-0 right-0 w-52'/>
+                            <div className='w-full text-white text-center text-2xl sm:text-2xl md:text-3xl sm:mt-6 sm:mb-6 lg:hidden'>Good {timeOfDay} !</div>
+                            <img src={LoginElementBlueTop.src} alt="G" className='absolute top-0 left-0 w-52'/>
+                        </div>
+                        
                         <div className="flex text-sm md:text-base justify-center lg:justify-start">
                             <div className="border bg-indigo-50 w-36 sm:w-40 border-[#5F6EF1] rounded-lg mr-10">
                                 <Radio id="employee" name="type" label="Employee" color="indigo" className="text-indigo-500" checked/>
                             </div>
                             <div className="border bg-indigo-50 w-40 border-[#5F6EF1] rounded-lg">
-                                <Radio id="admin" name="type" label="Admin" color="indigo" className="text-indigo-500" disabled />
+                                <Radio id="admin" name="type" label="Admin" color="indigo" className="text-indigo-500" />
                             </div>
                         </div>
                         {error && (
