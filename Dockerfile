@@ -1,26 +1,28 @@
-ARG NODE=node:18-alpine
+# Dockerfile
+
+ARG NODE=node:18
 
 # Stage 1: Install dependencies
 FROM ${NODE} AS dependencies
-RUN apk add --no-cache libc6-compat
-RUN mkdir -p /usr/app
-
+# RUN apk add --no-cache libc6-compat
+RUN mkdir -p /usr/app 
 WORKDIR /usr/app
 
-COPY package.json ./
-COPY package-lock.json ./
+COPY package.json package-lock.json ./
 
-RUN npm install
+RUN npm install 
 
 FROM ${NODE} AS builder
 WORKDIR /usr/app
 COPY --from=dependencies /usr/app/node_modules ./node_modules
 
+
 COPY . .
+
 
 ENV NEXT_TELEMETRY_DISABLED 1
 
-RUN npm run build
+RUN npm run build   
 
 ENV NODE_ENV=production
 
@@ -38,3 +40,4 @@ ENV PORT 3000
 
 # Serve the app
 CMD ["node", "standalone/server.js"]
+
