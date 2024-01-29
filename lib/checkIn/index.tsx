@@ -37,7 +37,7 @@ const CheckIn = () => {
 
     useEffect(() => {
         const checkStatus = async () => {
-            const res = await ApiService.get("http://127.0.0.1:8000/api/attendance/status/")
+            const res = await ApiService.get("http://10.31.248.137:8000/api/attendance/status/")
             console.log(res)
             if (res?.data?.data?.check_in){
                 const options:any = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
@@ -54,7 +54,7 @@ const CheckIn = () => {
     }, [])
 
     const handleCheckIn = async () => {
-        const response = await ApiService.postForm("http://127.0.0.1:8000/api/check/in/", {
+        const response = await ApiService.postForm("http://10.31.248.137:8000/api/check/in/", {
             check_in_message: checkInMessage,
             location_id: location,
             other_location: otherLocation

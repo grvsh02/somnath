@@ -11,7 +11,7 @@ const ListLocations = ({setApply}: any) => {
 
     useEffect(() => {
         const getLocations = async () => {
-            const response = await ApiService.get("http://127.0.0.1:8000/api/locations/get/")
+            const response = await ApiService.get("http://10.31.248.137:8000/api/locations/get/")
             console.log(response)
             if (isResponseValid(response)) {
                 setLocations(response?.data.data)

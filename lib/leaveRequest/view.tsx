@@ -11,7 +11,7 @@ const ViewLeaves = ({setApply}: any) => {
 
     useEffect(() => {
         const getLeaveRequests = async () => {
-            const response = await ApiService.get("http://127.0.0.1:8000/api/leave/requests/")
+            const response = await ApiService.get("http://10.31.248.137:8000/api/leave/requests/")
             console.log(response)
             if (isResponseValid(response)) {
                 setLeaveRequests(response?.data.data)

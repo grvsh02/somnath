@@ -34,7 +34,7 @@ const ContextProvider = ({ profile: _profile = null, data: _data, loginRequired 
         if (!!sessionStorage.getItem('user_profile')) {
             return JSON.parse(sessionStorage.getItem('user_profile') || "null");
         } else {
-            const user_profile_res = await ApiService.get("http://127.0.0.1:8000/api/me/");
+            const user_profile_res = await ApiService.get("http://10.31.248.137:8000/api/me/");
             if (isResponseValid(user_profile_res)) {
                 sessionStorage.setItem('user_profile', JSON.stringify(user_profile_res?.data.data));
                 return user_profile_res?.data.data;

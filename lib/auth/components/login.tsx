@@ -30,7 +30,7 @@ const Login = () => {
 
 
     const handleSignIn = async () => {
-        const response = await ApiService.postForm("http://127.0.0.1:8000/api/login/", {
+        const response = await ApiService.postForm("http://10.31.248.137:8000/api/login/", {
             username: username,
             password: password
         })
@@ -73,6 +73,7 @@ const Login = () => {
                 <img src={LoginElementBlueTop.src} alt="G" className='absolute top-0 left-0'/>
                 {/*<img src={ShowDatasetScreenshot.src} alt="G" className='absolute -bottom-14 -right-10'/>*/}
             </div>
+
             <div className="flex justify-center items-center w-1/2">
                 <Card className="w-3/5">
                     <CardBody className="flex flex-col gap-8">
