@@ -30,7 +30,7 @@ const Login = () => {
 
 
     const handleSignIn = async () => {
-        const response = await ApiService.postForm("http://10.31.248.137:8000/api/login/", {
+        const response = await ApiService.postForm("login/", {
             username: username,
             password: password
         })

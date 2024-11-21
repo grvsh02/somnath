@@ -53,7 +53,7 @@ const CheckOut = () => {
 
     useEffect(() => {
         const checkStatus = async () => {
-            const res = await ApiService.get("http://10.31.248.137:8000/api/attendance/status/")
+            const res = await ApiService.get("attendance/status/")
             console.log(res)
             if (res?.data?.data?.check_out){
                 const options:any = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
@@ -72,7 +72,7 @@ const CheckOut = () => {
     }, [])
 
     const handleCheckOut = async () => {
-        const response = await ApiService.postForm("http://10.31.248.137:8000/api/check/out/", {
+        const response = await ApiService.postForm("check/out/", {
             check_out_message: checkOutMessage
         })
         console.log(response)
