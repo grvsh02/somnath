@@ -38,7 +38,7 @@ const ApplyLeaves = ({setApply}: any) => {
     }, [sent]);
 
     const handleLeaveRequest = async () => {
-        const response = await ApiService.post("http://10.31.248.137:8000/api/leave/request/", {
+        const response = await ApiService.post("leave/request/", {
             start_date: {from},
             end_date: {to},
             reason: message,

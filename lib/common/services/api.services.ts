@@ -1,10 +1,13 @@
 import axios from 'axios';
 
 export class ApiService {
+
+    private static api_url = process.env.NEXT_PUBLIC_API_URL;
+
     // GET API Call
     static async get(path: string, params?: any) {
         try {
-            const response = await axios.get(path, {
+            const response = await axios.get(this.api_url + path, {
                 withCredentials: true,
                 params: params,
             });
@@ -16,7 +19,7 @@ export class ApiService {
     // POST API Call
     static async post(path: string, body: any, params?: any) {
         try {
-            const response = await axios.post(path, body, {
+            const response = await axios.post(this.api_url + path, body, {
                 withCredentials: true,
                 params: params,
             });
@@ -27,13 +30,13 @@ export class ApiService {
     }
     // POST FORM API Call
     static async postForm(path: string, body: any, params?: any) {
-        console.log(params)
         try {
-            const response = await axios.post(path, body, {
+            const response = await axios.post(this.api_url + path, body, {
                 headers: { 'Content-Type': 'multipart/form-data' },
                 withCredentials: true,
                 params: params,
             });
+            console.log(response)
             return response;
         } catch (error) {
             this.handleError(error);
@@ -42,7 +45,7 @@ export class ApiService {
     // PUT API Call
     static async put(path: string, body: any, params?: any) {
         try {
-            const response = await axios.put(path, body, { params: params });
+            const response = await axios.put(this.api_url + path, body, { params: params });
             return response;
         } catch (error) {
             this.handleError(error);
@@ -51,7 +54,7 @@ export class ApiService {
     // DELETE API Call
     static async delete(path: string, params?: any) {
         try {
-            const response = await axios.delete(path, { params: params });
+            const response = await axios.delete(this.api_url + path, { params: params });
             return response;
         } catch (error) {
             this.handleError(error);

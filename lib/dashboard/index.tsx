@@ -17,7 +17,7 @@ const Dashboard = () => {
 
     useEffect(() => {
         const getProfile = async () => {
-            const response = await ApiService.get("http://10.31.248.137:8000/api/me/profile/get/");
+            const response = await ApiService.get("me/profile/get/");
             console.log(response);
             // @ts-ignore
             setProfileState({...profile, ...response?.data.data})
